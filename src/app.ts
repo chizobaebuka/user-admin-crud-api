@@ -4,9 +4,10 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import authRoutes from './routes/auth.routes';
+import postRoutes from './routes/post.routes';
+import swaggerSpec from './config/swagger';
 
 dotenv.config();
 
@@ -22,19 +23,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Swagger Setup
-const swaggerOptions = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'User-Admin CRUD API Documentation',
-            version: '1.0.0',
-        },
-    },
-    apis: ['./routes/*.ts'], // Path to the API routes (for auto-generating swagger documentation)
-};
-
-const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 // Routes
 app.get('/', (req, res) => {
@@ -43,6 +31,7 @@ app.get('/', (req, res) => {
 
 // Use routes
 app.use('/api/auth', authRoutes);
+app.use('/api/post', postRoutes);
 
 // Swagger UI for User Docs
 app.use('/api/docs/user', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
