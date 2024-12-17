@@ -22,7 +22,7 @@ const router = express.Router();
  * /posts/create:
  *   post:
  *     summary: Create a new post
- *     tags: [Posts]
+ *     tags: [Post]
  *     security:
  *       - BearerAuth: []
  *     requestBody:
@@ -48,7 +48,7 @@ router.post('/create', authMiddleware, createPost);
  * /posts/{postId}:
  *   put:
  *     summary: Update an existing post
- *     tags: [Posts]
+ *     tags: [Post]
  *     security:
  *       - BearerAuth: []
  *     parameters:

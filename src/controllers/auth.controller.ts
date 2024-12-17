@@ -5,6 +5,7 @@ import { loginSchema, signUpSchema, verifyCodeSchema } from '../validators/user.
 import User from '../models/user.model';
 import { sendVerificationEmail } from '../services/email.service';
 import { generateToken } from '../services/jwt.service';
+import { RequestExt } from '../middleware/authenticate';
 
 const signUp = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -20,7 +21,7 @@ const signUp = async (req: Request, res: Response): Promise<void> => {
         const verificationCode = generateVerificationCode();
         const hashedPassword = await bcrypt.hashSync(password, 10)
 
-        const newUser = new User({ 
+        const newUser = new User({
             name,
             firstName,
             email,
