@@ -1,0 +1,2 @@
+{"endpoint":"/api/admin/create-admin","level":"info","message":"Attempt to promote user to admin","timestamp":"2024-12-18T00:52:55.455Z","userId":"676205d13427e91b34482eea"}
+{"email":"ttrendz400@gmail.com","level":"info","message":"User is already an admin","timestamp":"2024-12-18T00:52:55.625Z","userId":"676205d13427e91b34482eea"}
