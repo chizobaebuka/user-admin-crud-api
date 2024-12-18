@@ -1,26 +1,3 @@
-// import mongoose from 'mongoose';
-// import bcrypt from 'bcryptjs';
-// import User from '../models/user.model';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
-// const seedAdmin = async () => {
-//     const email = process.env.DEFAULT_ADMIN_EMAIL!;
-//     const password = await bcrypt.hash(process.env.DEFAULT_ADMIN_PASSWORD!, 10);
-
-//     const adminExists = await User.findOne({ email });
-//     if (!adminExists) {
-//         await User.create({ email, password, role: 'admin', name: 'Default Admin', firstName: 'Admin' });
-//         console.log('Admin user seeded.');
-//     } else {
-//         console.log('Admin user already exists.');
-//     }
-// };
-
-// seedAdmin().then(() => mongoose.connection.close());
-
-
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import User from '../models/user.model';

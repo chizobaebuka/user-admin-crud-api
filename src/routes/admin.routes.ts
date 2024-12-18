@@ -1,5 +1,5 @@
 import express from 'express';
-import { checkRoles } from '../middleware';
+import { authMiddleware, checkRoles } from '../middleware';
 import { createAdminUser } from '../controllers/admin.controller';
 
 const router = express.Router();
@@ -12,6 +12,6 @@ const router = express.Router();
  */
 
 // Only admins can access this route
-router.post('/create-admin', checkRoles(['admin']), createAdminUser);
+router.post('/create-admin', authMiddleware, checkRoles(['admin']), createAdminUser);
 
 export default router;

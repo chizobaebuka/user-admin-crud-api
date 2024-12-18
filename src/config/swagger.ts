@@ -15,7 +15,7 @@ const swaggerDefinition = {
                 summary: 'Create an admin user',
                 description: 'Creates an admin user with the provided user ID',
                 tags: ['Admin'],
-                security: [{ BearerAuth: [] }],
+                security: [{ JWTAuth: [] }],
                 requestBody: {
                     content: {
                         'application/json': {

@@ -1,8 +1,10 @@
 import { Response } from 'express';
 import User from '../models/user.model';
 import { RequestExt } from '../middleware/authenticate';
+import { rateLimiter } from '../middleware/ratelimitter.middleware';
 
 export const createAdminUser = async (req: RequestExt, res: Response): Promise<void> => {
+    rateLimiter
     const { userId } = req.body;
 
     if (!userId) {

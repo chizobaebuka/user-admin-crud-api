@@ -16,9 +16,10 @@ This API is built to manage user authentication, roles, and resources. It enable
 - CRUD Operations: Create, Read, Update, and Delete functionality for posts and comments.
 - Role-Based Access Control: Admin-only operations for specific routes.
 - Swagger Integration: Easily view and test APIs using Swagger UI.
+- Rate Limiter on all endpoints and logging functionality
 
 #### TECH STACK 
-Nodejs, ExpressJS, mongoose ODM, mongoDB, typescript, JWT, swaggerUi, nodemon 
+Nodejs, ExpressJS, mongoose ODM, mongoDB, typescript, JWT, swaggerUi, nodemon, winston (logger)
 
 #### STEPS TO TEST
 - git clone the repo ()
