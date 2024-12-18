@@ -1,8 +1,7 @@
-
-
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import Comment from '../models/comment.model';
 import { RequestExt } from '../middleware/authenticate';
+import mongoose from 'mongoose';
 
 const createComment = async (req: RequestExt, res: Response): Promise<void> => {
     const { content, postId } = req.body;
@@ -54,7 +53,7 @@ const getCommentsForPost = async (req: Request, res: Response): Promise<void> =>
 const updateComment = async (req: RequestExt, res: Response): Promise<void> => {
     const { commentId } = req.params;
     const { content } = req.body;
-    const userId = req.user?.userId; // Assuming you have user authentication middleware
+    const userId = req.user?.userId; 
 
     try {
         const comment = await Comment.findById(commentId);
@@ -98,7 +97,6 @@ const deleteComment = async (req: RequestExt, res: Response): Promise<void> => {
             return;
         }
 
-        // Ensure the user is the owner of the comment
         if (comment.userId.toString() !== userId) {
             res.status(403).json({ message: 'Unauthorized' });
             return;
@@ -121,7 +119,15 @@ const getCommentById = async (req: Request, res: Response): Promise<void> => {
     const { commentId } = req.params;
 
     try {
-        const comment = await Comment.findById(commentId);
+        const trimmedCommentId = commentId.trim();
+
+        if (!mongoose.Types.ObjectId.isValid(trimmedCommentId)) {
+            res.status(400).json({ message: 'Invalid comment ID.' });
+            return;
+        }
+
+        const comment = await Comment.findById(trimmedCommentId);
+        console.log({ comment })
 
         if (!comment) {
             res.status(404).json({ message: 'Comment not found.' });
@@ -141,5 +147,22 @@ const getCommentById = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export { createComment, getCommentsForPost, updateComment, deleteComment, getCommentById };
+const getAllComments = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const comments = await Comment.find();
+
+        res.status(200).json({
+            message: 'Comments retrieved successfully.',
+            status: 'success',
+            data: comments,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            message: 'Error retrieving comments.',
+            error: error.message,
+        });
+    }
+};
+
+export { createComment, getCommentsForPost, getAllComments, updateComment, deleteComment, getCommentById };
 
